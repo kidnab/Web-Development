@@ -53,36 +53,37 @@ def search(request):
     
 def new_page(request):
     if request.method == "GET":
-        return render(request, "encyclopedia/new.html") 
+        return render(request, "encyclopedia/new.html")
     else:
         title = request.POST['title']
         content = request.POST['content']
-        title_exists = util.get_entry(title)
-        if title_exists is not None:
+        duplicate_title = util.get_entry(title)
+        if duplicate_title is not None:
             return render(request, "encyclopedia/error.html", {
                 "message": "Entry page already exists"
             })
-        else: 
+        else:
             util.save_entry(title, content)
             html_content = convert(title)
             return render(request, "encyclopedia/entry.html", {
                 "title": title,
                 "content": html_content
             })
+    
             
 def edit(request):
     if request.method == "POST":
         title = request.POST['entry_title']
         content = util.get_entry(title)
         return render(request, "encyclopedia/edit.html", {
-            "title": title,
-            "content": content
+           "title": title, 
+           "content": content 
         })
-
-def save_edit(request): 
-    if request.method == "POST":
+        
+def save_edit(request):
+    if request.method == 'POST':
         title = request.POST['title']
-        content = util.get_entry(title)
+        content = request.POST['content']
         util.save_entry(title, content)
         html_content = convert(title)
         return render(request, "encyclopedia/entry.html", {

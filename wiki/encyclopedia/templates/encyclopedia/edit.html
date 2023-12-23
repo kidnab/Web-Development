@@ -9,7 +9,7 @@
 
     <form action="{% url 'save_edit' %}" method="POST">
         {% csrf_token %}
-        <label>Title:</label>
+        <label>Title: </label>
         <input type="text" name="title" placeholder="Enter a Title" value="{{ title }}">
         <br>
         <label>Markdown Content:</label>
@@ -18,6 +18,5 @@
         <br>
         <input type="submit" value="Save Edits" class="btn btn-primary">
     </form>
-        
-
+ 
 {% endblock %}

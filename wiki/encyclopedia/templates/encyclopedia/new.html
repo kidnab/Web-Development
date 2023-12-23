@@ -9,7 +9,7 @@
 
     <form action="{% url 'new_page' %}" method="POST">
         {% csrf_token %}
-        <label>Title:</label>
+        <label>Title: </label>
         <input type="text" name="title" placeholder="Enter a Title">
         <br>
         <label>Markdown Content:</label>
