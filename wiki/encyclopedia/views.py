@@ -9,10 +9,6 @@ import random
 def convert(title):
     content = util.get_entry(title)
     markdowner = Markdown()
-    if content == None: 
-        content = util.get_entry(title.capitalize())
-    if content == None: 
-        content = util.get_entry(title.upper())
     if content == None:
         return None
     else:
@@ -22,7 +18,7 @@ def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
- 
+
 def entry(request, title):
     html_content = convert(title)
     if html_content == None:
@@ -34,7 +30,7 @@ def entry(request, title):
             "title": title,
             "content": html_content
         })
-    
+   
 def search(request):
     if request.method == "POST":
         entry_search = request.POST['q']
@@ -44,15 +40,15 @@ def search(request):
                 "title": entry_search,
                 "content": html_content
             })
-#        else: 
-#            entries = util.list_entries()
-#            search_results = []
-#            for entry in entries:
-#                if entry_search.lower() in entry.lower():
-#                    search_results.append(entry)
-#            return render(request, "encyclopedia/search.html", {
-#                "search results": search_results
-#            })
+        else:
+            entries = util.list_entries()
+            search_results = []
+            for entry in entries:
+                if entry_search.lower() in entry.lower():
+                    search_results.append(entry)
+            return render(request, "encyclopedia/search.html", {
+                "search_results": search_results
+            })
 
     
 def new_page(request):
